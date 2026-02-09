@@ -106,7 +106,7 @@ const App: React.FC = () => {
       />
       
       <main className="flex-grow flex flex-col items-center justify-center px-6 z-10 relative pointer-events-none">
-        <div className="pointer-events-auto contents">
+        <div className="pointer-events-auto flex flex-col items-center w-full">
           <LargeLogo 
             isDarkMode={isDarkMode} 
             isRedMode={isRedMode} 
@@ -118,7 +118,9 @@ const App: React.FC = () => {
       </main>
 
       <div className="z-20 relative pointer-events-none w-full flex flex-col items-center">
-        <ActionButtons isDarkMode={isDarkMode} isRedMode={isRedMode} />
+        <div className="pointer-events-auto">
+          <ActionButtons isDarkMode={isDarkMode} isRedMode={isRedMode} />
+        </div>
         <Footer />
       </div>
 
