@@ -19,6 +19,12 @@ const BackgroundScene: React.FC<BackgroundSceneProps> = ({ isDarkMode, isRedMode
     return 'bg-zinc-400 shadow-[0_0_5px_rgba(161,161,170,0.3)]';
   };
 
+  const getSubOrbClass = () => {
+    if (isRedMode) return 'bg-red-400 shadow-[0_0_5px_rgba(239,68,68,0.8)]';
+    if (isDarkMode) return 'bg-zinc-300 shadow-[0_0_4px_rgba(255,255,255,0.4)]';
+    return 'bg-zinc-500 shadow-[0_0_3px_rgba(161,161,170,0.3)]';
+  };
+
   const getIconClass = () => {
     if (isRedMode) return 'fill-red-600/40 group-hover:fill-red-500 transition-all duration-300';
     if (isDarkMode) return 'fill-white/10 group-hover:fill-white/60 transition-all duration-300';
@@ -122,21 +128,6 @@ const BackgroundScene: React.FC<BackgroundSceneProps> = ({ isDarkMode, isRedMode
               </svg>
             </a>
           </div>
-          {/* YouTube Icon (Orbit 3) */}
-          <div className="absolute" style={{ transform: 'rotate(240deg) translateY(-320px) rotate(-240deg)' }}>
-            <a 
-              href="https://youtube.com/@KAMI_RAINE" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="group pointer-events-auto block relative"
-              title="YouTube"
-            >
-              <div className={`absolute inset-[-12px] rounded-full border transition-all duration-500 ${getBtnBackdrop()}`}></div>
-              <svg viewBox="0 0 24 24" className={`w-10 h-10 ${getIconClass()} relative z-10 drop-shadow-sm`}>
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-              </svg>
-            </a>
-          </div>
         </div>
 
         {/* 4-Pointed Concave Star (Sparkle) */}
@@ -157,7 +148,20 @@ const BackgroundScene: React.FC<BackgroundSceneProps> = ({ isDarkMode, isRedMode
               ${isRedMode ? 'border-red-600/20' : (isDarkMode ? 'border-white/10' : 'border-zinc-300/40')}`}
             style={{ width: '115%', height: '115%' }}
           >
-            <div className={`absolute top-1/2 -right-1.5 -translate-y-1/2 w-3 h-3 rounded-full transition-all duration-1000 ${getOrbClass()}`} />
+            {/* PLANET SYSTEM - Nested Orbit - ENLARGED */}
+            <div className="absolute top-1/2 -right-[120px] -translate-y-1/2 w-[240px] h-[240px] flex items-center justify-center">
+              
+              {/* The Planet (Center Orb) */}
+              <div className={`w-4 h-4 rounded-full transition-all duration-1000 relative z-10 ${getOrbClass()}`} />
+
+              {/* The Moon's Orbit Ring */}
+              <div className={`absolute inset-0 rounded-full border animate-spin-medium
+                ${isRedMode ? 'border-red-500/20' : (isDarkMode ? 'border-white/10' : 'border-black/10')}`}
+              >
+                {/* The Moon (Sub Orb) */}
+                <div className={`absolute top-1/2 -left-[5px] -translate-y-1/2 w-3 h-3 rounded-full ${getSubOrbClass()}`} />
+              </div>
+            </div>
           </div>
           
           <div 
@@ -211,6 +215,10 @@ const BackgroundScene: React.FC<BackgroundSceneProps> = ({ isDarkMode, isRedMode
           from { transform: rotate(360deg); }
           to { transform: rotate(0deg); }
         }
+        @keyframes spin-fast {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
         .animate-breathe {
           animation: breathe 15s ease-in-out infinite;
         }
@@ -228,6 +236,12 @@ const BackgroundScene: React.FC<BackgroundSceneProps> = ({ isDarkMode, isRedMode
         }
         .animate-spin-extra-slow-rev {
           animation: spin-slow-reverse 180s linear infinite;
+        }
+        .animate-spin-fast {
+          animation: spin-fast 4s linear infinite;
+        }
+        .animate-spin-medium {
+          animation: spin-slow 12s linear infinite;
         }
       `}</style>
     </div>
